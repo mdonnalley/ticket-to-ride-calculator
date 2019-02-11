@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
-import './Counter.css';
+import './TrainCounter.css';
 
 const BUTTON_STYLE = {
 	display: 'inline-block'
 };
 
-export default class Counter extends Component {
+export default class TrainCounter extends Component {
 	isNegative(key) {
 		return this.props.value <= 0;
 	}
   
   render() {
     return (
-      <Grid container spacing={24} className='Counter'>
+      <Grid container spacing={24} className='TrainCounter'>
         <Grid item xs={3}>
           <label>{this.props.label}</label>	
         </Grid>
