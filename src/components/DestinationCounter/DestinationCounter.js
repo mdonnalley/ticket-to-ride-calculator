@@ -16,10 +16,10 @@ export default class DestinationCounter extends Component {
   render() {
     return (
       <Grid container spacing={24} className='DestinationCounter'>
-        <Grid item xs={3}>
+        <Grid item xs={6}>
           <label>{this.props.name}</label>
         </Grid>
-        <Grid item xs={9}>
+        <Grid item xs={6}>
           <Input
             type="number"
             name={this.props.name}

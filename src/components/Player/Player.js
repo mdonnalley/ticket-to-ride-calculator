@@ -3,6 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import TrainCounter from '../TrainCounter/TrainCounter';
 import DestinationCounter from '../DestinationCounter/DestinationCounter';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import './Player.css';
 
 
@@ -77,41 +78,42 @@ export default  class Player extends Component {
 	render() {
 		return (
 			<div className="Player">
-				<hr></hr>
-				<Typography variant='h5'>
+				<Typography color="primary" variant='h5'>
 					{titleCase(this.props.player.name)}: {this.props.player.score} 
 				</Typography>
 				<hr></hr>
-				{
-						TRAIN_LENGTHS.map(trainLength => {
+				<Grid container spacing={24}>
+					<Grid item xs={6}>
+						{TRAIN_LENGTHS.map(trainLength => {
 							return <TrainCounter
-									key={trainLength.key}
-									decrement={this.decrementTrain}
-									increment={this.incrementTrain}
-									trainLengthKey={trainLength.key}
-									label={trainLength.label}
-									value={this.state[trainLength.key]}>
-								</TrainCounter>
-						})
-				}
-				{
-					Object.keys(this.state.destinationCards).map(card => {
-						return <DestinationCounter
-							key={card}
-							name={card}
-							points={this.state.destinationCards[card]}
-							update={this.updateDesintationCard}>
-						</DestinationCounter>
-					})					
-				}
-				<Button
-            type='submit'
-            color='primary'
-            variant='contained'
-						onClick={this.addNewDestinationCard}>
-            Add Destination Card
-        </Button>
-				
+								key={trainLength.key}
+								decrement={this.decrementTrain}
+								increment={this.incrementTrain}
+								trainLengthKey={trainLength.key}
+								label={trainLength.label}
+								value={this.state[trainLength.key]}>
+							</TrainCounter>
+						})}
+					</Grid>
+					<Grid item xs={6}>
+						{Object.keys(this.state.destinationCards).map(card => {
+							return <DestinationCounter
+								key={card}
+								name={card}
+								points={this.state.destinationCards[card]}
+								update={this.updateDesintationCard}>
+							</DestinationCounter>
+						})}
+						<Button
+							type='submit'
+							color='primary'
+							variant='contained'
+							onClick={this.addNewDestinationCard}
+						>
+							Add Destination Card
+						</Button>
+					</Grid>
+				</Grid>
 			</div>
 		)
 	}
