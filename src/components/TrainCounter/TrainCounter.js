@@ -3,10 +3,6 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import './TrainCounter.css';
 
-const BUTTON_STYLE = {
-	display: 'inline-block'
-};
-
 export default class TrainCounter extends Component {
 	isNegative(key) {
 		return this.props.value <= 0;
@@ -14,7 +10,7 @@ export default class TrainCounter extends Component {
   
   render() {
     return (
-      <Grid container spacing={24} className='TrainCounter'>
+      <Grid container spacing={24} alignItems='center' className='TrainCounter'>
         <Grid item xs={3}>
           <label>{this.props.label}</label>	
         </Grid>
@@ -23,7 +19,6 @@ export default class TrainCounter extends Component {
             color='secondary'
             variant='contained'
             disabled={this.isNegative(this.props.trainLengthKey)}
-            style={BUTTON_STYLE}
             onClick={() => this.props.decrement(this.props.trainLengthKey)}>
             -
           </Button>
@@ -35,7 +30,6 @@ export default class TrainCounter extends Component {
           <Button
             color='primary'
             variant='contained'
-            style={BUTTON_STYLE}
             onClick={() => this.props.increment(this.props.trainLengthKey)}>
             +
           </Button>
