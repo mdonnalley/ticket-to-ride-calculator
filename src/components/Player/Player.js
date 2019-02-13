@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Typography from '@material-ui/core/Typography';
 import TrainCounter from '../TrainCounter/TrainCounter';
 import DestinationCounter from '../DestinationCounter/DestinationCounter';
-import Button from '@material-ui/core/Button';
+import DestinationSelector from '../DestinationSelector/DestinationSelector';
 import Grid from '@material-ui/core/Grid';
 import './Player.css';
 
@@ -24,7 +24,7 @@ export default  class Player extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			destinationCards: {},
+			destinationCards: [],
 			oneCount: 0,
 			twoCount: 0,
 			threeCount: 0,
@@ -35,8 +35,9 @@ export default  class Player extends Component {
 
 		this.incrementTrain = this.incrementTrain.bind(this);
 		this.decrementTrain = this.decrementTrain.bind(this);
-		this.addNewDestinationCard = this.addNewDestinationCard.bind(this);
-		this.updateDesintationCard = this.updateDesintationCard.bind(this);
+		this.addDestinationCard = this.addDestinationCard.bind(this);
+		this.updateDestinationCard = this.updateDestinationCard.bind(this);
+		this.removeDestinationCard = this.removeDestinationCard.bind(this);
 	}
 
 	incrementTrain(key) {
@@ -50,28 +51,32 @@ export default  class Player extends Component {
 	updateFinalScore() {
 		const trainScore = TRAIN_LENGTHS.reduce((result, current) => {
 			return result += (this.state[current.key] * current.multiplier)
-		}, 0)
-		const destinationCardScore = Object
-			.values(this.state.destinationCards)
-			.reduce((result, current) => result += current, 0);
+		}, 0);
+		const destinationCardScore = this.state.destinationCards
+			.reduce((result, current) => result += current.value, 0);
 		const score = trainScore + destinationCardScore;
 		this.props.handleScoreChange(this.props.player.name, score);
 	}
 
-	addNewDestinationCard() {
-		const { destinationCards } = this.state;
-		const currentNumber = Object.keys(destinationCards).length;
-		const newCard = {
-			[`Destination Card #${currentNumber + 1}`]: 0
-		};
+	addDestinationCard(card) {
 		this.setState(state => ({
-			destinationCards: Object.assign({}, destinationCards, newCard)
-		}));
+			destinationCards: [...state.destinationCards, card]
+		}), this.updateFinalScore);
+		this.props.handleCardAction(card, 'add');
 	}
 
-	updateDesintationCard(name, points) {
+	removeDestinationCard(card) {
 		this.setState(state => ({
-			destinationCards: Object.assign({}, state.destinationCards, { [name]: points })
+			destinationCards: state.destinationCards.filter(c => c.title !== card.title)
+		}), this.updateFinalScore);
+		this.props.handleCardAction(card, 'remove');
+	}
+
+	updateDestinationCard(card) {
+		this.setState(state => ({
+			destinationCards: state.destinationCards.map(c => {
+				return c.title === card.title ? card : c;
+			})
 		}), this.updateFinalScore);
 	}
 
@@ -83,7 +88,8 @@ export default  class Player extends Component {
 				</Typography>
 				<hr></hr>
 				<Grid container spacing={24}>
-					<Grid item xs={6}>
+					<Grid item xs={5}>
+						<Typography color='primary' variant='h6'>Trains</Typography>
 						{TRAIN_LENGTHS.map(trainLength => {
 							return <TrainCounter
 								key={trainLength.key}
@@ -95,23 +101,21 @@ export default  class Player extends Component {
 							</TrainCounter>
 						})}
 					</Grid>
-					<Grid item xs={6}>
-						{Object.keys(this.state.destinationCards).map(card => {
+					<Grid item xs={7}>
+						<DestinationSelector
+							card={{ title: '', value: 0 }}
+							options={this.props.availableCards}
+							onAdd={this.addDestinationCard}>
+						</DestinationSelector>
+						{this.state.destinationCards.map(card => {
 							return <DestinationCounter
-								key={card}
-								name={card}
-								points={this.state.destinationCards[card]}
-								update={this.updateDesintationCard}>
+								key={card.title}
+								card={card}
+								update={this.updateDestinationCard}
+								remove={this.removeDestinationCard}>
 							</DestinationCounter>
 						})}
-						<Button
-							type='submit'
-							color='primary'
-							variant='contained'
-							onClick={this.addNewDestinationCard}
-						>
-							Add Destination Card
-						</Button>
+						
 					</Grid>
 				</Grid>
 			</div>

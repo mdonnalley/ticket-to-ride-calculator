@@ -1,0 +1,122 @@
+[
+  {
+    "title": "Denver to El Paso",
+    "value": 4
+  },
+  {
+    "title": "Kansas City to Houston",
+    "value": 5
+  },
+  {
+    "title": "New York to Atlanta",
+    "value": 6
+  },
+  {
+    "title": "Chicago to New Orleans",
+    "value": 7
+  },
+  {
+    "title": "Calgary to Salt Lake City",
+    "value": 7
+  },
+  {
+    "title": "Helena to Los Angeles",
+    "value": 8
+  },
+  {
+    "title": "Duluth to Houston",
+    "value": 8
+  },
+  {
+    "title": "Sault Ste Marie to Nashville",
+    "value": 8
+  },
+  {
+    "title": "Montreal to Atlanta",
+    "value": 9
+  },
+  {
+    "title": "Sault Ste. Marie to Oklahoma City",
+    "value": 9
+  },
+  {
+    "title": "Seattle to Los Angeles",
+    "value": 9
+  },
+  {
+    "title": "Chicago to Santa Fe",
+    "value": 9
+  },
+  {
+    "title": "Duluth to El Paso",
+    "value": 10
+  },
+  {
+    "title": "Toronto to Miami",
+    "value": 10
+  },
+  {
+    "title": "Portland to Phoenix",
+    "value": 11
+  },
+  {
+    "title": "Dallas to New York City",
+    "value": 11
+  },
+  {
+    "title": "Denver to Pittsburgh",
+    "value": 11
+  },
+  {
+    "title": "Winnipeg to Little Rock",
+    "value": 11
+  },
+  {
+    "title": "Winnipeg to Houston",
+    "value": 12
+  },
+  {
+    "title": "Boston to Miami",
+    "value": 12
+  },
+  {
+    "title": "Vancouver to Santa Fe",
+    "value": 13
+  },
+  {
+    "title": "Calgary to Phoenix",
+    "value": 13
+  },
+  {
+    "title": "Montreal to New Orleans",
+    "value": 13
+  },
+  {
+    "title": "Los Angeles to Chicago",
+    "value": 16
+  },
+  {
+    "title": "San Francisco to Atlanta",
+    "value": 17
+  },
+  {
+    "title": "Portland to Nashville",
+    "value": 17
+  },
+  {
+    "title": "Vancouver to Montréal",
+    "value": 20
+  },
+  {
+    "title": "Los Angeles to Miami",
+    "value": 20
+  },
+  {
+    "title": "Los Angeles to New York City",
+    "value": 21
+  },
+  {
+    "title": "Seattle to New York",
+    "value": 22
+  }
+]

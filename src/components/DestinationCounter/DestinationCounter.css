@@ -1,3 +1,7 @@
 .DestinationCounter {
-  text-align: center;
+  /* text-align: center; */
+}
+
+.delete-icon {
+  cursor: pointer;
 }
