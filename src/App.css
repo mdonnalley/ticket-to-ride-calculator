@@ -1,11 +1,4 @@
-/* colors: 
-   light blue: #39A0ED
-   light green: #36F1CD
-   green: #13C4A3
-   blue gray: #34435E
-   gray: #7DBBC3
-*/
-
 .App {
-
+  margin: 0 auto;
+  padding: 1% 5%;
 }

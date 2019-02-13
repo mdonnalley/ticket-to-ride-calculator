@@ -4,6 +4,29 @@ import NewPlayerForm from './components/NewPlayerForm/NewPlayerForm';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import './App.css';
+import { createMuiTheme } from '@material-ui/core/styles';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+
+const theme = createMuiTheme({
+  typography: {
+    useNextVariants: true,
+  },
+  palette: {
+    primary: {
+      light: '#606e8b',
+      main: '#34435E',
+      dark: '#091c34',
+      contrastText: '#ffffff'
+    },
+    secondary: {
+      light: '#62f8d4',
+      main: '#13c4a3',
+      dark: '#009274',
+      contrastText: '#000000',
+    },
+    // error: will use the default color
+  },
+});
 
 export default class App extends Component {
 
@@ -60,14 +83,15 @@ export default class App extends Component {
   render() {
 
     let winner = this.state.players.length ? 
-      <Typography variant='h6'> Winner: {this.findWinner()} </Typography> :
+      <Typography color='primary' variant='h6'> Winner: {this.findWinner()} </Typography> :
       null;
 
     return (
       <div className='App'>
+        <MuiThemeProvider theme={theme}>
         <Grid container spacing={24}>
           <Grid item xs={12}>
-            <Typography variant='h2'>
+            <Typography color='primary' variant='h2'>
               Ticket to Ride Score Calculator
             </Typography>
           </Grid>
@@ -81,7 +105,7 @@ export default class App extends Component {
             {this.renderPlayers()}
           </Grid>
         </Grid>
-        
+        </MuiThemeProvider>
       </div>
     );
   }
