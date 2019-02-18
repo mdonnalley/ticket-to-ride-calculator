@@ -88,7 +88,7 @@ export default  class Player extends Component {
 				</Typography>
 				<hr></hr>
 				<Grid container spacing={24}>
-					<Grid item xs={5}>
+					<Grid item sm={6} xs={12}>
 						<Typography color='primary' variant='h6'>Trains</Typography>
 						{TRAIN_LENGTHS.map(trainLength => {
 							return <TrainCounter
@@ -101,7 +101,7 @@ export default  class Player extends Component {
 							</TrainCounter>
 						})}
 					</Grid>
-					<Grid item xs={7}>
+					<Grid item sm={6} xs={12}>
 						<DestinationSelector
 							card={{ title: '', value: 0 }}
 							options={this.props.availableCards}

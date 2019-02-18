@@ -36,11 +36,11 @@ export default class DestinationCounter extends Component {
 
   render() {
     return (
-      <Grid container alignItems='center' spacing={24} className='DestinationCounter'>
-        <Grid item xs={6}>
+      <Grid container alignItems='center' spacing={8} className='DestinationCounter'>
+        <Grid item lg={7} md={5} sm={12} xs={12}>
           {this.props.card.title}
         </Grid>
-        <Grid item xs={2}>
+        <Grid item lg={2} md={3} sm={4} xs={12}>
           <Button
             variant={this.determineVariant('reached')}
             color='primary'
@@ -48,7 +48,7 @@ export default class DestinationCounter extends Component {
             Reached
           </Button>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item lg={2} md={3} sm={4} xs={12}>
           <Button
             variant={this.determineVariant('missed')}
             color='primary'
@@ -56,7 +56,7 @@ export default class DestinationCounter extends Component {
             Missed
           </Button>
         </Grid>
-        <Grid item xs={2}>
+        <Grid item lg={1} md={1} sm={4} xs={12}>
           <IconButton onClick={this.removeCard}>
             <Delete color='action' ></Delete>
           </IconButton>
