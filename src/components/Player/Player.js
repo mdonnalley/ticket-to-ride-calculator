@@ -5,6 +5,8 @@ import DestinationCounter from '../DestinationCounter/DestinationCounter';
 import DestinationSelector from '../DestinationSelector/DestinationSelector';
 import Grid from '@material-ui/core/Grid';
 import './Player.css';
+import IconButton from '@material-ui/core/IconButton';
+import Delete from '@material-ui/icons/Delete';
 
 
 function titleCase(str) {
@@ -38,6 +40,7 @@ export default  class Player extends Component {
 		this.addDestinationCard = this.addDestinationCard.bind(this);
 		this.updateDestinationCard = this.updateDestinationCard.bind(this);
 		this.removeDestinationCard = this.removeDestinationCard.bind(this);
+		this.removePlayer = this.removePlayer.bind(this);
 	}
 
 	incrementTrain(key) {
@@ -55,7 +58,7 @@ export default  class Player extends Component {
 		const destinationCardScore = this.state.destinationCards
 			.reduce((result, current) => result += current.value, 0);
 		const score = trainScore + destinationCardScore;
-		this.props.handleScoreChange(this.props.player.name, score);
+		this.props.handleScoreChange(this.props.player.id, score);
 	}
 
 	addDestinationCard(card) {
@@ -80,12 +83,20 @@ export default  class Player extends Component {
 		}), this.updateFinalScore);
 	}
 
+	removePlayer(event) {
+		this.props.handleRemovePlayer(this.props.player, event);
+	}
+
 	render() {
 		return (
 			<div className="Player">
 				<Typography color="primary" variant='h5'>
 					{titleCase(this.props.player.name)}: {this.props.player.score} 
+					<IconButton onClick={this.removePlayer}>
+						<Delete color='action' ></Delete>
+					</IconButton>
 				</Typography>
+				
 				<hr></hr>
 				<Grid container spacing={24}>
 					<Grid item sm={6} xs={12}>

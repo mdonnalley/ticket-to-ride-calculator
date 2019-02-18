@@ -19,7 +19,7 @@ export default class Rankings extends Component {
   buildRows() {
     const players = Object.assign([], this.props.players);
     return players.sort(compareScores).map(player => {
-      return <TableRow key={player.name}>
+      return <TableRow key={player.id}>
         <TableCell>{player.name}</TableCell>
         <TableCell>{player.score}</TableCell>
       </TableRow>

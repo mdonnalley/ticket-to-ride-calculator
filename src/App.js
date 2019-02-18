@@ -45,6 +45,10 @@ function alpabeticalSort(arr) {
   });
 }
 
+function createRandomId() {
+  return Math.floor(Math.random() * 9999999) + 1  
+}
+
 export default class App extends Component {
 
   constructor() {
@@ -54,23 +58,31 @@ export default class App extends Component {
       availableCards: Object.assign([], alpabeticalSort(DestinationCards))
     };
     this.handleNewPlayer = this.handleNewPlayer.bind(this);
+    this.handleRemovePlayer = this.handleRemovePlayer.bind(this);
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleCardAction = this.handleCardAction.bind(this);
     this.handleLongestTrain = this.handleLongestTrain.bind(this);
   }
 
   handleNewPlayer(player, event) {
-    const newPlayer = { name: player, score: 0, longestTrain: false };
+    const newPlayer = { name: player, score: 0, longestTrain: false, id: createRandomId() };
     this.setState(state => ({
       players: [...state.players, newPlayer],
     }));
     event.preventDefault();
   }
 
-  handleScoreChange(name, score) {
+  handleRemovePlayer(player, event) {
+    this.setState(state => ({
+      players: state.players.filter(p => p.id !== player.id),
+    }));
+    event.preventDefault();
+  }
+
+  handleScoreChange(id, score) {
     this.setState(state => ({
       players: state.players.map(player => {
-        if (player.name === name) {
+        if (player.id === id) {
           let playerScore = player.longestTrain ? score + 10 : score;
           return Object.assign({}, player, { score: playerScore });
         } else {
@@ -98,13 +110,13 @@ export default class App extends Component {
     
   }
 
-  handleLongestTrain(name) {
+  handleLongestTrain(id) {
     this.setState(state => ({
       players: state.players.map(player => {
-        if (name === player.name && !player.longestTrain) {
-          return { name, score: player.score += 10, longestTrain: true };
-        } else if (player.longestTrain && player.name !== name) {
-          return { name: player.name, score: player.score -= 10, longestTrain: false };
+        if (id === player.id && !player.longestTrain) {
+          return Object.assign(player, { score: player.score += 10, longestTrain: true });
+        } else if (player.longestTrain && player.id !== id) {
+          return Object.assign(player, { score: player.score -= 10, longestTrain: false });
         } else {
           return player;
         }
@@ -116,10 +128,11 @@ export default class App extends Component {
     return this.state.players.map(player => {
       return <Player
         player={player}
-        key={player.name}
+        key={player.id}
         handleScoreChange={this.handleScoreChange}
         availableCards={this.state.availableCards}
-        handleCardAction={this.handleCardAction}>
+        handleCardAction={this.handleCardAction}
+        handleRemovePlayer={this.handleRemovePlayer}>
       </Player>
     });
   }
