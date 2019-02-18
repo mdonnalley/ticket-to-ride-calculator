@@ -51,12 +51,12 @@ export default class App extends Component {
       players: [],
       availableCards: Object.assign([], alpabeticalSort(DestinationCards))
     };
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleNewPlayer = this.handleNewPlayer.bind(this);
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleCardAction = this.handleCardAction.bind(this);
   }
 
-  handleSubmit(player, event) {
+  handleNewPlayer(player, event) {
     const newPlayer = { name: player, score: 0 };
     this.setState(state => ({
       players: [...state.players, newPlayer],
@@ -137,7 +137,7 @@ export default class App extends Component {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <NewPlayerForm handleSubmit={this.handleSubmit}></NewPlayerForm>
+            <NewPlayerForm handleSubmit={this.handleNewPlayer}></NewPlayerForm>
           </Grid>
           <Grid item xs={12}>
             {winner}

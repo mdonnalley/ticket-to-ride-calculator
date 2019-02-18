@@ -10,11 +10,11 @@ export default class TrainCounter extends Component {
   
   render() {
     return (
-      <Grid container spacing={24} alignItems='center' className='TrainCounter'>
-        <Grid item xs={3}>
+      <Grid container spacing={8} alignItems='center' className='TrainCounter'>
+        <Grid item md={3} xs={12}>
           <label>{this.props.label}</label>	
         </Grid>
-        <Grid item xs={3}>
+        <Grid item md={3} xs={4}>
           <Button
             color='secondary'
             variant='contained'
@@ -23,10 +23,10 @@ export default class TrainCounter extends Component {
             -
           </Button>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item md={3} xs={4}>
           <span>{this.props.value}</span>
         </Grid>
-        <Grid item xs={3}>
+        <Grid item md={3} xs={4}>
           <Button
             color='primary'
             variant='contained'
