@@ -20,7 +20,7 @@ const TRAIN_LENGTHS = [
 	{ key: 'fourCount', label: 'Four Trains', multiplier: 7 },
 	{ key: 'fiveCount', label: 'Five Trains', multiplier: 10 },
 	{ key: 'sixCount', label: 'Six Trains', multiplier: 15 }
-]
+];
 
 export default  class Player extends Component {
 	constructor(props) {
@@ -89,8 +89,8 @@ export default  class Player extends Component {
 
 	render() {
 		return (
-			<div className="Player">
-				<Typography color="primary" variant='h5'>
+			<div className='Player'>
+				<Typography color='primary' variant='h5'>
 					{titleCase(this.props.player.name)}: {this.props.player.score} 
 					<IconButton onClick={this.removePlayer}>
 						<Delete color='action' ></Delete>
