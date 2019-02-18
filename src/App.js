@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Player from './components/Player/Player';
 import NewPlayerForm from './components/NewPlayerForm/NewPlayerForm';
+import Rankings from './components/Rankings/Rankings';
+import LongestTrain from './components/LongestTrain/LongestTrain';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import './App.css';
@@ -54,10 +56,11 @@ export default class App extends Component {
     this.handleNewPlayer = this.handleNewPlayer.bind(this);
     this.handleScoreChange = this.handleScoreChange.bind(this);
     this.handleCardAction = this.handleCardAction.bind(this);
+    this.handleLongestTrain = this.handleLongestTrain.bind(this);
   }
 
   handleNewPlayer(player, event) {
-    const newPlayer = { name: player, score: 0 };
+    const newPlayer = { name: player, score: 0, longestTrain: false };
     this.setState(state => ({
       players: [...state.players, newPlayer],
     }));
@@ -68,7 +71,8 @@ export default class App extends Component {
     this.setState(state => ({
       players: state.players.map(player => {
         if (player.name === name) {
-          return { name, score };
+          let playerScore = player.longestTrain ? score + 10 : score;
+          return Object.assign({}, player, { score: playerScore });
         } else {
           return player;
         }
@@ -94,6 +98,20 @@ export default class App extends Component {
     
   }
 
+  handleLongestTrain(name) {
+    this.setState(state => ({
+      players: state.players.map(player => {
+        if (name === player.name && !player.longestTrain) {
+          return { name, score: player.score += 10, longestTrain: true };
+        } else if (player.longestTrain && player.name !== name) {
+          return { name: player.name, score: player.score -= 10, longestTrain: false };
+        } else {
+          return player;
+        }
+      })
+    }))
+  }
+
   renderPlayers() {
     return this.state.players.map(player => {
       return <Player
@@ -106,27 +124,22 @@ export default class App extends Component {
     });
   }
 
-  findWinner() {
-    if (this.state.players.length) {
-      const maxScore = Math.max(...this.state.players.map(p => p.score));
-      const winners = this.state.players.filter(p => p.score === maxScore);
-      return winners.reduce((result, current, idx) => {
-        return idx === 0 ?
-          `${result} ${current.name} (${current.score})` :
-          `${result}, ${current.name} (${current.score})`;
-      }, '');
-    } else {
-      return 'None';
-    }
-    
+  maybeRenderRankings() {
+    return this.state.players.length ?
+      <Rankings players={this.state.players}></Rankings> :
+      null
+  }
+
+  maybeRenderLongestTrain() {
+    return this.state.players.length ?
+      <LongestTrain
+        players={this.state.players}
+        handleLongestTrain={this.handleLongestTrain}>
+      </LongestTrain> :
+      null
   }
 
   render() {
-
-    let winner = this.state.players.length ? 
-      <Typography color='primary' variant='h6'> Winner: {this.findWinner()} </Typography> :
-      null;
-
     return (
       <div className='App'>
         <MuiThemeProvider theme={theme}>
@@ -140,7 +153,10 @@ export default class App extends Component {
             <NewPlayerForm handleSubmit={this.handleNewPlayer}></NewPlayerForm>
           </Grid>
           <Grid item xs={12}>
-            {winner}
+            {this.maybeRenderRankings()}
+          </Grid>
+          <Grid item xs={12}>
+            {this.maybeRenderLongestTrain()}
           </Grid>
           <Grid item xs={12}>
             {this.renderPlayers()}
