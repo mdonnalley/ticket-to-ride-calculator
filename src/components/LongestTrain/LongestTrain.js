@@ -13,9 +13,9 @@ export default class LongestTrain extends Component {
   }
 
   handleChange(event) {
-    const playerName = event.target.value;
-    this.setState({ selection: playerName});
-    this.props.handleLongestTrain(playerName);
+    const playerId = event.target.value;
+    this.setState({ selection: playerId});
+    this.props.handleLongestTrain(playerId);
   }
 
   render() {
@@ -32,7 +32,7 @@ export default class LongestTrain extends Component {
           </MenuItem>
           {
             this.props.players.map(player => {
-              return <MenuItem key={player.name} value={player.name}>{player.name}</MenuItem>
+              return <MenuItem key={player.id} value={player.id}>{player.name}</MenuItem>
             })
           }
         </Select>
